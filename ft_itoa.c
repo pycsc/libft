@@ -1,0 +1,56 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                           +#               */
+/*    ft_itoa.c                                             +##               */
+/*                                                        +###+               */
+/*    By: lucas <lucas@tsiaraso.com>                  +########+              */
+/*                                                          +###+             */
+/*    Created: 2026/04/01 02:41:15 by lucas                  ##+              */
+/*    Updated: 2026/04/01 02:41:15 by lucas                 #+                */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+static int	ft_numlen(int n)
+{
+	int	len;
+
+	len = 0;
+	if (n <= 0)
+		len = 1;
+	while (n != 0)
+	{
+		n /= 10;
+		len++;
+	}
+	return (len);
+}
+
+char	*ft_itoa(int n)
+{
+	char	*str;
+	int		len;
+	long	nb;
+
+	len = ft_numlen(n);
+	str = (char *)malloc(len + 1);
+	if (!str)
+		return (NULL);
+	nb = n;
+	str[len] = '\0';
+	if (nb < 0)
+	{
+		str[0] = '-';
+		nb = -nb;
+	}
+	if (nb == 0)
+		str[0] = '0';
+	while (nb > 0)
+	{
+		len--;
+		str[len] = (nb % 10) + '0';
+		nb /= 10;
+	}
+	return (str);
+}
